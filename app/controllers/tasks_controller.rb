@@ -1,10 +1,16 @@
 class TasksController < ApplicationController
+	
+	
+	before_action :set_task, only: [:show, :edit, :update, :destroy]
+	
+	def set_task
+		@task=Task.find(params[:id])
+	end
 	def index
 		@tasks = Task.all
 	end
 	
 	def show
-		@task = Task.find(params[:id])
 	end
 	
 	def new
@@ -24,11 +30,9 @@ class TasksController < ApplicationController
 	end
 	
 	def edit
-		@task = Task.find(params[:id])
 	end
 	
 	def update
-		@task = Task.find(params[:id])
 		
 		if @task.update(task_params)
 			flash[:succuess] = 'Taskは正常に投稿されました。'
@@ -40,7 +44,6 @@ class TasksController < ApplicationController
 	end
 	
 	def destroy
-		@task = Task.find(params[:id])
 		@task.destroy
 		
 		flash[:succuess] ='Taskは正常に削除されました。'
